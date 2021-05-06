@@ -18,4 +18,4 @@ public class Student {
         petya.voice();
         petya.voice();
     }
-}
+ }
