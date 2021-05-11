@@ -1,9 +1,9 @@
 package ru.job4j.oop;
 
 public class Triangle {
-    private Point first;
-    private Point second;
-    private Point third;
+    private final Point first;
+    private final Point second;
+    private final Point third;
 
     public Triangle(Point ap, Point bp, Point cp) {
         this.first = ap;
@@ -16,7 +16,7 @@ public class Triangle {
     }
 
     public boolean exist(double ab, double ac, double bc) {
-        return (ab + ac) > bc || (ac + bc) > ab;
+        return (ab + ac) > bc && (ac + bc) > ab && (ab + bc) > ac;
     }
 
     public double area() {
@@ -24,8 +24,8 @@ public class Triangle {
         double ab = first.distance(second);
         double ac = first.distance(third);
         double bc = second.distance(third);
-        double p = period(ab, ac, bc);
         if (this.exist(ab, ac, bc)) {
+            double p = period(ab, ac, bc);
             rsl = Math.sqrt(p * (p - ab) * (p - ac) * (p - bc));
         }
         return rsl;
