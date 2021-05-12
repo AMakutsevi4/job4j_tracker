@@ -22,4 +22,13 @@ class PointTest {
         double out = first.distance(second);
         Assertions.assertEquals(expected, out, 0.01);
     }
+
+    @Test
+    public void when123to456Then519() {
+        Point first = new Point(1, 2, 3);
+        Point second = new Point(4, 5, 6);
+         double expected = 5.19;
+        double out = first.distance3d(second);
+        Assertions.assertEquals(expected, out, 0.01);
+    }
 }
