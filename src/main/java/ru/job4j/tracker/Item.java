@@ -32,8 +32,9 @@ public class Item {
         this.name = name;
     }
 
-    Item one = new Item();
-    Item two = new Item(1);
-    Item three = new Item("Stop1");
-
+    public static void main(String[] args) {
+        Item one = new Item();
+        Item two = new Item(1);
+        Item three = new Item("Stop1");
+    }
 }
