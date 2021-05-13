@@ -4,6 +4,18 @@ public class Item {
     private int id;
     private String name;
 
+    public Item(int id) {
+
+    }
+
+    public Item() {
+
+    }
+
+    public Item(String name) {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -19,4 +31,9 @@ public class Item {
     public void setName(String name) {
         this.name = name;
     }
+
+    Item one = new Item();
+    Item two = new Item(1);
+    Item three = new Item("Stop1");
+
 }
