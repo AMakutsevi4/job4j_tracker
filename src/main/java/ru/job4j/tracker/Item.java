@@ -5,7 +5,7 @@ public class Item {
     private String name;
 
     public Item(int id) {
-
+        this.id = id;
     }
 
     public Item() {
@@ -13,10 +13,11 @@ public class Item {
     }
 
     public Item(String name) {
-
+        this.name = name;
     }
 
     public int getId() {
+
         return id;
     }
 
@@ -30,11 +31,5 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public static void main(String[] args) {
-        Item one = new Item();
-        Item two = new Item(1);
-        Item three = new Item("Stop1");
     }
 }
