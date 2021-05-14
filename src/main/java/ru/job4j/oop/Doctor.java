@@ -8,6 +8,9 @@ public class Doctor extends Profession {
         super(name, surname, education, birthday);
         this.abilityToOppose = abilityToOppose;
         this.speakEnglish = true;
+    }
+
+    public static void main(String[] args) {
         Doctor george = new Doctor("George", "Bla", "3", "12.12.2012", true, false);
     }
 }
