@@ -5,6 +5,7 @@ public class Engineer extends Profession {
     private boolean speakEnglish;
 
     public Engineer(String name, String surname, String education, String birthday, int experience, boolean speakEnglish) {
+        super(name, surname, education, birthday);
         this.experience = experience;
         this.speakEnglish = false;
     }
