@@ -12,20 +12,17 @@ public class Library {
         books[1] = warAndPeace;
         books[2] = theLighthouse;
         books[3] = invisibleMan;
-        for (int i = 0; i < books.length; i++) {
-            Book boo = books[i];
-            System.out.println(boo.getName() + " - " + boo.getPage());
+        for (Book i : books) {
+            System.out.println(i.getName() + " - " + i.getPage());
         }
         books[0] = invisibleMan;
         books[3] = cleanCode;
-        for (int i = 0; i < books.length; i++) {
-            Book boo = books[i];
-            System.out.println(boo.getName() + " - " + boo.getPage());
+        for (Book i : books) {
+            System.out.println(i.getName() + " - " + i.getPage());
         }
-        for (int i = 0; i < books.length; i++) {
-            Book boo = books[i];
-            if (boo.getName() == "Clean code") {
-                System.out.println(boo.getName() + " - " + boo.getPage());
+        for (Book i : books) {
+            if (i.getName().equals("Clean code")) {
+                System.out.println(i.getName() + " - " + i.getPage());
             }
         }
     }
