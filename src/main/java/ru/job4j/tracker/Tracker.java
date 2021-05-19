@@ -17,16 +17,14 @@ public class Tracker {
         return Arrays.copyOf(items, size);
     }
 
-    public Item findByName(String key) {
-        Item rsl = null;
+    public Item[] findByName(String key) {
+        Item[] itemsName = new Item[100];
         for (int index = 0; index < size; index++) {
-            Item item = items[index];
-            if (key.equals(item.getName())) {
-                rsl = item;
-                break;
+            if (key.equals(items[index].getName())) {
+                itemsName[index] = items[index];
             }
         }
-        return rsl;
+        return itemsName;
     }
 
     public Item findById(int id) {
