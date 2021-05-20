@@ -6,6 +6,9 @@ import java.time.format.DateTimeFormatter;
 public class Item {
     private int id;
 
+    private String name;
+    private LocalDateTime created = LocalDateTime.now();
+
     @Override
     public String toString() {
         return "Item{"
@@ -14,9 +17,6 @@ public class Item {
                 + ", created=" + created
                 + '}';
     }
-
-    private String name;
-    private LocalDateTime created = LocalDateTime.now();
 
     public Item(int id) {
         this.id = id;
