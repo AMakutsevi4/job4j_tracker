@@ -60,7 +60,7 @@ public class Tracker {
         if (rsl) {
             int start = index + 1;
             int length = size - index - 1;
-            System.arraycopy(items, start, items, size - 1, length);
+            System.arraycopy(items, start, items, index, length);
             items[size - 1] = null;
             size--;
         }
