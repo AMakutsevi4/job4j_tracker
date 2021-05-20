@@ -5,6 +5,16 @@ import java.time.format.DateTimeFormatter;
 
 public class Item {
     private int id;
+
+    @Override
+    public String toString() {
+        return "Item{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", created=" + created
+                + '}';
+    }
+
     private String name;
     private LocalDateTime created = LocalDateTime.now();
 

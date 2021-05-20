@@ -8,5 +8,6 @@ public class StartUI {
         tracker.add(item1);
         tracker.add(item2);
         System.out.println(tracker.findById(1));
+        System.out.println(item2);
     }
 }
