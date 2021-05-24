@@ -60,7 +60,7 @@ public class StartUI {
                 Item[] item = tracker.findByName(name);
                 if (item.length > 0) {
                     for (int i = 0; i < item.length; i++) {
-                        System.out.println("Элемент найден: " + Arrays.toString(Arrays.copyOf(item, i)));
+                        System.out.println("Элемент найден: " + item[i]);
                     }
                 } else {
                     System.out.println("Заявки с таким именем не найдены");
