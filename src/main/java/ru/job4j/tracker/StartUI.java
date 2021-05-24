@@ -26,7 +26,7 @@ public class StartUI {
             } else if (select == 2) {
                 System.out.println("=== Редактировать элемент: ====");
                 System.out.println("Введите id заявки");
-                int id = scanner.nextInt();
+                int id = Integer.valueOf(scanner.nextLine());
                 System.out.println("Введите новое имя элемента");
                 String name = scanner.nextLine();
                 Item item = new Item(name);
@@ -37,7 +37,7 @@ public class StartUI {
                 }
             } else if (select == 3) {
                 System.out.println("Введите id заявки");
-                int id = scanner.nextInt();
+                int id = Integer.valueOf(scanner.nextLine());
                 if (tracker.delete(id)) {
                     System.out.println("Элемент удален");
                 } else {
@@ -46,7 +46,7 @@ public class StartUI {
 
             } else if (select == 4) {
                 System.out.println("Введите id заявки");
-                int id = scanner.nextInt();
+                int id = Integer.valueOf(scanner.nextLine());
                 Item item = tracker.findById(id);
                 boolean rsl = item != null;
                 if (rsl) {
@@ -60,9 +60,8 @@ public class StartUI {
                 Item[] item = tracker.findByName(name);
                 if (item.length > 0) {
                     for (int i = 0; i < item.length; i++) {
-                  System.out.println("Элемент найден: " + Arrays.toString(Arrays.copyOf(item, i)));
+                        System.out.println("Элемент найден: " + Arrays.toString(Arrays.copyOf(item, i)));
                     }
-
                 } else {
                     System.out.println("Заявки с таким именем не найдены");
                 }
