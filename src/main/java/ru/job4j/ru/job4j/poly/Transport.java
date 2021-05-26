@@ -2,9 +2,9 @@ package ru.job4j.ru.job4j.poly;
 
 public interface Transport {
 
-    int gofar();
+    void gofar();
 
-    int sayInt(int question);
+    void sayNumPassengers(int number);
 
-    int fuelInt(String question);
+    int fuelprice(int fuel);
 }

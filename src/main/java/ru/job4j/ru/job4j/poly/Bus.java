@@ -1,18 +1,19 @@
 package ru.job4j.ru.job4j.poly;
 
 public class Bus implements Transport {
+
     @Override
-    public int gofar() {
-        return 0;
+    public void gofar() {
+
     }
 
     @Override
-    public int sayInt(int question) {
-        return 0;
+    public void sayNumPassengers(int number) {
+
     }
 
     @Override
-    public int fuelInt(String question) {
+    public int fuelprice(int fuel) {
         return 0;
     }
 }
