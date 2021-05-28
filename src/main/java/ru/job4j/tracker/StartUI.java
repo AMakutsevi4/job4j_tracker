@@ -10,19 +10,6 @@ public class StartUI {
         System.out.println("Добавленная заявка: " + item);
     }
 
-    public static void replaceItem(Input input, Tracker tracker) {
-        System.out.println("=== Все заявки: ====");
-        Item[] items = tracker.findAll();
-        if (items.length > 0) {
-            for (Item item : items) {
-                System.out.println(item);
-            }
-        } else {
-            System.out.println("Хранилище еще не содержит заявок");
-        }
-
-    }
-
     public static void editItem(Input input, Tracker tracker) {
         System.out.println("=== Изменение заявки ====");
         int id = input.askInt("Введите id: ");
@@ -35,7 +22,7 @@ public class StartUI {
         }
     }
 
-    public static void daleteItem(Input input, Tracker tracker) {
+    public static void deleteItem(Input input, Tracker tracker) {
         System.out.println("=== Удаление заявки ====");
         int id = input.askInt("Введите id: ");
         if (tracker.delete(id)) {
@@ -45,69 +32,32 @@ public class StartUI {
         }
     }
 
-    public static void findItemId(Input input, Tracker tracker) {
-        System.out.println("=== Вывод заявки по id ====");
-        int id = input.askInt("Введите id: ");
-        Item item = tracker.findById(id);
-        if (item != null) {
-            System.out.println(item);
-        } else {
-            System.out.println("Заявка с введенным id: " + id + " не найдена.");
-        }
-    }
-
-    public static void findByItemName(Input input, Tracker tracker) {
-        System.out.println("=== Вывод заявок по имени ====");
-        String name = input.askStr("Введите имя: ");
-        Item[] items = tracker.findByName(name);
-        if (items.length > 0) {
-            for (Item item : items) {
-                System.out.println(item);
-            }
-        } else {
-            System.out.println("Заявки с именем: " + name + " не найдены.");
-        }
-    }
-
-    public void init(Input input, Tracker tracker) {
+    public void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
         while (run) {
-            showMenu();
+            this.showMenu(actions);
             int select = input.askInt("Select: ");
-            if (select == 0) {
-                StartUI.createItem(input, tracker);
-            } else if (select == 1) {
-                StartUI.replaceItem(input, tracker);
-            } else if (select == 2) {
-                StartUI.editItem(input, tracker);
-            } else if (select == 3) {
-                StartUI.daleteItem(input, tracker);
-            } else if (select == 4) {
-                StartUI.findItemId(input, tracker);
-            } else if (select == 5) {
-                StartUI.findByItemName(input, tracker);
-            } else if (select == 6) {
-                run = false;
-            }
+            UserAction action = actions[select];
+            run = action.execute(input, tracker);
         }
     }
 
-    private void showMenu() {
-        String[] menu = {
-                "Добавление заявки", "Вывод всех заявок", "Изменение заявки",
-                "Удаление заявки", "Вывод заявки по id", "Вывод заявок по имени",
-                "Exit Program"
-        };
-        System.out.println("Menu:");
-        for (int i = 0; i < menu.length; i++) {
-            System.out.println(i + ". " + menu[i]);
+    private void showMenu(UserAction[] actions) {
+        System.out.println("Menu.");
+        for (int index = 0; index < actions.length; index++) {
+            System.out.println(index + ". " + actions[index].name());
         }
-
     }
 
     public static void main(String[] args) {
         Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        new StartUI().init(input, tracker);
+        UserAction[] actions = {
+                new CreateAction(), new ShowAction(), new EditAction(),
+                new DeleteAction(), new FindIdAction(), new FindNameAction(),
+                new ExitAction()
+        };
+        new StartUI().init(input, tracker, actions);
+
     }
 }
