@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -19,25 +20,24 @@ public class StartUITest {
     }
 
     @Test
+    public void whenReplaceItem() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("new item");
+        tracker.add(item);
+        String[] answers = {String.valueOf(item.getId()), "replaced item"};
+        StartUI.editItem(new StubInput(answers), tracker);
+        Item replaced = tracker.findById(item.getId());
+        assertThat(replaced.getName(), is("replaced item"));
+    }
+
+    @Test
     public void whenDeleteItem() {
         Tracker tracker = new Tracker();
         Item item = new Item("new item");
         tracker.add(item);
-        int id = item.getId();
-        item.setName("replaced item");
-        assertThat(tracker.findById(id).getName(), is("replaced item"));
-    }
-
-    @Test
-    public void whenReplaceItems() {
-        Tracker tracker = new Tracker();
-        Item item = new Item("null");
-        tracker.add(item);
-        int id = item.getId();
-        if (tracker.delete(id)) {
-            System.out.println("Заявка удалена успешно.");
-        } else {
-            assertThat(tracker.delete(id), is("null"));
-        }
+        String[] answers = {String.valueOf(item.getId())};
+        StartUI.daleteItem(new StubInput(answers), tracker);
+        Item deleted = tracker.findById(item.getId());
+        assertNull(deleted);
     }
 }
