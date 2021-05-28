@@ -14,12 +14,12 @@ public class DeleteAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        System.out.println("=== Удаление заявки ====");
+        out.println("=== Удаление заявки ====");
         int id = input.askInt("Введите id: ");
         if (tracker.delete(id)) {
-            System.out.println("Заявка удалена успешно.");
+            out.println("Заявка удалена успешно.");
         } else {
-            System.out.println("Ошибка удаления заявки.");
+            out.println("Ошибка удаления заявки.");
         }
         return true;
     }
