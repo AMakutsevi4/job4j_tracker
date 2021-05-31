@@ -60,10 +60,13 @@ public class StartUITest {
     @Test
     public void whenFindAllAction() {
         Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("one request"));
+        Item item1 = tracker.add(new Item("two request"));
+        Item item2 = tracker.add(new Item("three request"));
         Input in = new StubInput(
                 new String[]{"0", "1"}
         );
-        Tracker tracker = new Tracker();
         UserAction[] actions = {
                 new ShowAction(out),
                 new ExitAction(),
@@ -85,7 +88,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Deleted item"));
         Input in = new StubInput(
-                new String[]{"0", String.valueOf(item.getId()), "1"}
+                new String[]{"0", String.valueOf(item.getName()), "1"}
         );
         UserAction[] actions = {
                 new FindNameAction(out),
@@ -96,7 +99,7 @@ public class StartUITest {
                 + "0. Вывод заявок по имени" + lineSeparator()
                 + "1. Выход из программы" + lineSeparator()
                 + "=== Вывод заявок по имени ====" + lineSeparator()
-                + "Заявки с именем: 1 не найдены." + lineSeparator()
+                + item + lineSeparator()
                 + "Меню." + lineSeparator()
                 + "0. Вывод заявок по имени" + lineSeparator()
                 + "1. Выход из программы" + lineSeparator()
