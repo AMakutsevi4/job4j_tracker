@@ -12,14 +12,14 @@ public class StartUI {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
-            int select = input.askInt("Select: ");
+            int select = input.askInt("Выберите: ");
             UserAction action = actions[select];
             run = action.execute(input, tracker);
         }
     }
 
     private void showMenu(UserAction[] actions) {
-        out.println("Menu.");
+        out.println("Меню.");
         for (int index = 0; index < actions.length; index++) {
             out.println(index + ". " + actions[index].name());
         }

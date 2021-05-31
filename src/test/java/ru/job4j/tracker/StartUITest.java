@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import static java.lang.System.lineSeparator;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -11,7 +13,7 @@ public class StartUITest {
     public void whenCreateItem() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] {"0", "Item name", "1"}
+                new String[]{"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {
@@ -29,7 +31,7 @@ public class StartUITest {
         Item item = tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(item.getId()), "New item name", "1"}
+                new String[]{"0", String.valueOf(item.getId()), "New item name", "1"}
         );
         UserAction[] actions = {
                 new EditAction(out),
@@ -45,7 +47,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Deleted item"));
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(item.getId()), "1"}
+                new String[]{"0", String.valueOf(item.getId()), "1"}
         );
         UserAction[] actions = {
                 new DeleteAction(out),
@@ -53,5 +55,77 @@ public class StartUITest {
         };
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId()), is(nullValue()));
+    }
+
+    @Test
+    public void whenFindAllAction() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[]{"0", "1"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {
+                new ShowAction(out),
+                new ExitAction(),
+
+        };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(out.toString(), is("Меню." + lineSeparator()
+                + "0. Вывод всех заявок" + lineSeparator()
+                + "1. Выход из программы" + lineSeparator()
+                + "Меню." + lineSeparator()
+                + "0. Вывод всех заявок" + lineSeparator()
+                + "1. Выход из программы" + lineSeparator()
+        ));
+    }
+
+    @Test
+    public void whenFindByNameAction() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("Deleted item"));
+        Input in = new StubInput(
+                new String[]{"0", String.valueOf(item.getId()), "1"}
+        );
+        UserAction[] actions = {
+                new FindNameAction(out),
+                new ExitAction()
+        };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(out.toString(), is("Меню." + lineSeparator()
+                + "0. Вывод заявок по имени" + lineSeparator()
+                + "1. Выход из программы" + lineSeparator()
+                + "=== Вывод заявок по имени ====" + lineSeparator()
+                + "Заявки с именем: 1 не найдены." + lineSeparator()
+                + "Меню." + lineSeparator()
+                + "0. Вывод заявок по имени" + lineSeparator()
+                + "1. Выход из программы" + lineSeparator()
+
+        ));
+    }
+
+    @Test
+    public void whenFindByIdAction() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("Deleted item"));
+        Input in = new StubInput(
+                new String[]{"0", String.valueOf(item.getId()), "1"}
+        );
+        UserAction[] actions = {
+                new FindIdAction(out),
+                new ExitAction()
+        };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(out.toString(), is("Меню." + lineSeparator()
+                + "0. Вывод заявки по id" + lineSeparator()
+                + "1. Выход из программы" + lineSeparator()
+                + "=== Вывод заявки по id ====" + lineSeparator()
+                + item + lineSeparator()
+                + "Меню." + lineSeparator()
+                + "0. Вывод заявки по id" + lineSeparator()
+                + "1. Выход из программы" + lineSeparator()
+
+        ));
     }
 }
