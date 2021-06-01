@@ -10,8 +10,7 @@ public class FactTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void whenStartGreaterThenFinish() {
-        int rsl = Fact.calc(-1);
-        assertThat(rsl, is(24));
+        Fact.calc(-1);
     }
 
     @Test
