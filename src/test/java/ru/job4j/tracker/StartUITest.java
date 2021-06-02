@@ -135,4 +135,27 @@ public class StartUITest {
 
         ));
     }
+
+    @Test
+    public void whenInvalidExit() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"123", "0"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = new UserAction[]{
+                new ExitAction()
+        };
+        new StartUI(out).init(in, tracker, actions);
+        String ln = System.lineSeparator();
+        assertThat(out.toString(), is(
+                "Меню." + ln
+                        + "0. Выход из программы" + ln
+                        + "Неправильный ввод, вы можете выбрать: 0 .. 0" + ln
+                        + "Меню." + ln
+                        + "0. Выход из программы" + ln
+
+                )
+        );
+    }
 }
