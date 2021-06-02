@@ -12,7 +12,7 @@ public class StartUI {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
-            int select = input.askInt("Выбирите: ");
+            int select = input.askInt("Выберите: ");
             if (select < 0 || select >= actions.length) {
                 out.println("Неправильный ввод, вы можете выбрать: 0 .. " + (actions.length - 1));
                 continue;
