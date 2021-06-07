@@ -23,11 +23,11 @@ public class ValidateInput implements Input {
             try {
                 String rsl = in.askStr(question);
                 value = Integer.parseInt(rsl);
-                invalid = false;
 
                 if (value < 0) {
                     throw new NumberFormatException("Отрицательное число");
                 }
+                invalid = false;
             } catch (NumberFormatException nfe) {
                 out.println("Пожалуйста, введите данные для подтверждения еще раз.");
             }
