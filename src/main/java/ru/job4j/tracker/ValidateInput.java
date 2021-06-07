@@ -20,26 +20,19 @@ public class ValidateInput implements Input {
         boolean invalid = true;
         int value = -1;
         do {
-            String rsl = in.askStr(question);
-            if (!isNumber(rsl)) {
-                System.out.println("Пожалуйста, введите данные для подтверждения еще раз.");
-                continue;
+            try {
+                String rsl = in.askStr(question);
+                value = Integer.parseInt(rsl);
+                invalid = false;
+
+                if (value < 0) {
+                    throw new NumberFormatException("Отрицательное число");
+                }
+            } catch (NumberFormatException nfe) {
+                out.println("Пожалуйста, введите данные для подтверждения еще раз.");
             }
-            value = Integer.parseInt(rsl);
-            invalid = false;
+
         } while (invalid);
         return value;
-    }
-
-    private boolean isNumber(String value) {
-        boolean rsl = true;
-        char[] check = value.toCharArray();
-        for (char num : check) {
-            if (num < 48 || num > 57) {
-                rsl = false;
-                break;
-            }
-        }
-        return rsl;
     }
 }
