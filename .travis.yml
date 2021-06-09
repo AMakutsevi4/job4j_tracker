@@ -7,9 +7,9 @@ jdk:
 sudo: false
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
-# Здесь используется сторонний сервис https://codecov.com/
+# Здесь используется сторонний сервис https://codecov.io/
 after_success:
-  - bash <(curl -s https://codecov.com/bash)
+  - bash <(curl -s https://codecov.io/bash)
 
 # Отправлять уведомление на почту youremail@smtp.ru (Изменить на свою) если сборка упала
 notifications:
@@ -21,4 +21,3 @@ notifications:
     env:
       global:
         - CODECOV_TOKEN="716b3d08-2d5e-4e89-a8dc-088bd0259d5a"
-        -
