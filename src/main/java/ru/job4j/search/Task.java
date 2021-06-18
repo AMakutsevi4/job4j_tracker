@@ -9,6 +9,14 @@ public class Task {
         this.priority = priority;
     }
 
+    @Override
+    public String toString() {
+        return "Task{"
+               + "desc='" + desc + '\''
+               + ", priority=" + priority
+               + '}';
+    }
+
     public String getDesc() {
         return desc;
     }
