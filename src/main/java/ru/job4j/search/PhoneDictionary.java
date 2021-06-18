@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PhoneDictionary {
 
-    private ArrayList<Person> persons = new ArrayList<>();
+    private final ArrayList<Person> persons = new ArrayList<>();
 
     public void add(Person person) {
         this.persons.add(person);
@@ -12,10 +12,12 @@ public class PhoneDictionary {
 
     public ArrayList<Person> find(String key) {
         ArrayList<Person> result = new ArrayList<>();
-        if (key.equals(persons)) {
-            System.out.println(persons);
+        for (Person person : persons) {
+            if (key.equals(person.getName()) || key.equals(person.getSurname())
+                    || key.equals(person.getPhone()) || key.equals(person.getAddress())) {
+                result.add(person);
+            }
         }
-
-        return persons;
+        return result;
     }
 }
