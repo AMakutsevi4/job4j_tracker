@@ -15,6 +15,7 @@ public class UniqueText {
         for (var control : text) {
             if (!check.contains(control)) {
                 rsl = false;
+                break;
             }
         }
         return rsl;
