@@ -1,4 +1,5 @@
 package ru.job4j.collection;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -15,5 +16,18 @@ public class OrderConvertTest {
         orders.add(new Order("3sfe", "Dress"));
         HashMap<String, Order> map = OrderConvert.process(orders);
         assertThat(map.get("3sfe"), is(new Order("3sfe", "Dress")));
+    }
+
+    @Test
+    public void whenDuplicateOrder() {
+        List<Order> orders = new ArrayList<>();
+        orders.add(new Order("4rfd", "Dress1"));
+        orders.add(new Order("3sfe", "Dress"));
+        orders.add(new Order("3sfe", "Dress"));
+        orders.add(new Order("4rfd", "Dress1"));
+        orders.add(new Order("4rfd", "Dress1"));
+        HashMap<String, Order> map = OrderConvert.process(orders);
+        assertThat(map.get("3sfe"), is(new Order("3sfe", "Dress")));
+        assertThat(map.get("4rfd"), is(new Order("4rfd", "Dress1")));
     }
 }
