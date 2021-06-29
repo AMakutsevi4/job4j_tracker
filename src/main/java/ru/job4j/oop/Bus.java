@@ -8,6 +8,7 @@ public class Bus implements Vehicle {
 
     @Override
     public void discount(int discount) {
-        System.out.println("When choosing " + getClass().getSimpleName() + " discount for next trip: " + discount + " dollars");
+        System.out.println("When choosing " + getClass().getSimpleName()
+                + " discount for next trip: " + discount + " dollars");
     }
 }

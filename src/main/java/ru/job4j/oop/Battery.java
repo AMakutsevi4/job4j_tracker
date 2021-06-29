@@ -15,8 +15,10 @@ public class Battery {
     public static void main(String[] args) {
         Battery one = new Battery(1200);
         Battery two = new Battery(99555);
-        System.out.println("Заряд первой батареи : " + one.load + " Заряд второй батареи : " + two.load);
+        System.out.println("Заряд первой батареи : " + one.load
+                + " Заряд второй батареи : " + two.load);
         one.exchange(two);
-        System.out.println("Заряд первой батареи : " + one.load + " Заряд второй батареи : " + two.load);
+        System.out.println("Заряд первой батареи : " + one.load
+                + " Заряд второй батареи : " + two.load);
     }
 }
