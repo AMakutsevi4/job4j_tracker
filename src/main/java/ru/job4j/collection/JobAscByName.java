@@ -2,7 +2,7 @@ package ru.job4j.collection;
 
 import java.util.Comparator;
 
-public class JobDestByNameAscending implements Comparator<Job> {
+public class JobAscByName implements Comparator<Job> {
 
     @Override
     public int compare(Job o1, Job o2) {
