@@ -16,7 +16,7 @@ public class ItemSort {
         System.out.println(items);
         items.sort(new SortByNameItem());
         System.out.println(items);
-        items.sort(new SortByNameItem().reversed());
+        items.sort(new SortByNameRevers());
         System.out.println(items);
     }
 }
