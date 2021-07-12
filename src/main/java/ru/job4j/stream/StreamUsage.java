@@ -1,7 +1,7 @@
 package ru.job4j.stream;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StreamUsage {
     public static class Task {
@@ -27,12 +27,9 @@ public class StreamUsage {
                 new Task(3),
                 new Task(5)
         );
-        List<Task> container = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.number > 0) {
-                container.add(task);
-            }
-        }
-        System.out.print(container);
+        List<Task> bugs = tasks.stream().filter(
+                task -> task.number > 0
+        ).collect(Collectors.toList());
+        bugs.forEach(System.out::println);
     }
 }
