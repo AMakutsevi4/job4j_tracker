@@ -24,6 +24,24 @@ public class ProfilesTest {
         profileList.add(profile1);
         Profiles profiles = new Profiles();
         assertThat(profiles.collect(profileList), is(addresses));
+    }
 
+    @Test
+    public void whenUnique() {
+        Address ner = new Address("Neryungri", "Timptonskaya", 7, 78);
+        Address moscow = new Address("msc", "Lenina", 2, 23);
+        Address ner1 = new Address("Neryungri", "Timptonskaya", 7, 78);
+        Profile profile1 = new Profile(ner);
+        Profile profile2 = new Profile(moscow);
+        Profile profile3 = new Profile(ner1);
+        List<Address> expected = new ArrayList<>();
+        expected.add(ner);
+        expected.add(moscow);
+        List<Profile> profileList = new ArrayList<>();
+        profileList.add(profile1);
+        profileList.add(profile2);
+        profileList.add(profile3);
+        Profiles profiles = new Profiles();
+        assertThat(profiles.uniqueSort(profileList), is(expected));
     }
 }
