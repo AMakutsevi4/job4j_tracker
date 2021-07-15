@@ -12,11 +12,10 @@ public class School {
                 .filter(predict).collect(Collectors.toList());
     }
 
-    public Map<String, Student> collectMap(List<Student> students, Predicate<Student> predict) {
+    public Map<String, Student> collectMap(List<Student> students) {
         return students.stream()
-                .filter(predict)
-                .distinct()
-                .collect(Collectors.toMap(Student::getSurname,
-                        Function.identity()));
+                .collect(Collectors.toMap(Student::getSurname, s -> s, (Function, Student) -> {
+                    return Function.equals(Student) ? Function : Student;
+                }));
     }
 }

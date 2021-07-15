@@ -78,14 +78,13 @@ public class SchoolTest {
                 new Student(40, "Surname4")
         );
         School sc = new School();
-        Predicate<Student> pr = student -> student.getScore() < 100;
-        Map<String, Student> rsl = sc.collectMap(students, pr);
+        Map<String, Student> rsl = sc.collectMap(students);
         Map<String, Student> expected = new TreeMap<>();
-                expected.put("Surname1", new Student(10, "Surname1"));
-                expected.put("Surname2", new Student(20, "Surname2"));
-                expected.put("Surname3", new Student(30, "Surname3"));
-                expected.put("Surname4", new Student(40, "Surname4"));
-                assertThat(rsl, is(expected));
+        expected.put("Surname1", new Student(10, "Surname1"));
+        expected.put("Surname2", new Student(20, "Surname2"));
+        expected.put("Surname3", new Student(30, "Surname3"));
+        expected.put("Surname4", new Student(40, "Surname4"));
+        assertThat(rsl, is(expected));
 
     }
 }
