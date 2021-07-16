@@ -12,7 +12,7 @@ public class TransferMethods {
         V_6, V_7, V_8
     }
 
-    public class Card {
+    public static class Card {
         private Suit suit;
         private Value value;
 
@@ -20,12 +20,20 @@ public class TransferMethods {
             this.suit = suit;
             this.value = value;
         }
+
+        @Override
+        public String toString() {
+            return "Card{"
+                    + "suit=" + suit
+                    + ", value=" + value
+                    + '}';
+        }
     }
 
     public static void main(String[] args) {
         Stream.of(Suit.values())
                 .flatMap(suits -> Stream.of(Value.values())
-                        .map(values -> suits + " " + values))
+                        .map(values -> new Card(suits, values)))
                 .forEach(System.out::println);
     }
 }
