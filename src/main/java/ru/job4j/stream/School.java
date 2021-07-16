@@ -14,8 +14,8 @@ public class School {
 
     public Map<String, Student> collectMap(List<Student> students) {
         return students.stream()
-                .collect(Collectors.toMap(Student::getSurname, s -> s, (Function, Student) -> {
-                    return Function.equals(Student) ? Function : Student;
+                .collect(Collectors.toMap(Student::getSurname, s -> s, (f, s) -> {
+                    return f.equals(s) ? f : s;
                 }));
     }
 }
