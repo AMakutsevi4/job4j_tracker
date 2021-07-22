@@ -2,13 +2,11 @@ package ru.job4j.bank;
 
 import ru.job4j.collection.Order;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Класс описывает работу модели банковской системы
+ *
  * @author Makutsevich
  * @version 1.0
  */
@@ -26,6 +24,7 @@ public class BankService {
         List<Account> accounts = new ArrayList<>();
         users.putIfAbsent(user, accounts);
     }
+
     /**
      * Метод принимает на вход паспорт и счет, добавляет счет по пасспорту.
      * По паспорту находит пользователя с помощью метода findByPassport(passport).
@@ -33,25 +32,25 @@ public class BankService {
      */
 
     public void addAccount(String passport, Account account) {
-        User user = findByPassport(passport);
-        if (user != null) {
-            List<Account> accounts = users.get(user);
+        Optional<User> user = findByPassport(passport);
+        if (user.isPresent()) {
+            List<Account> accounts = users.get(user.get());
             if (!accounts.contains(account)) {
                 accounts.add(account);
             }
         }
     }
+
     /**
      * Метод принимает на вход паспорт, позволяя по нему получить пользователя.
      * сравнивает значение пасспорта пользователя и входное значение.
      */
 
-    public User findByPassport(String passport) {
+    public Optional<User> findByPassport(String passport) {
         return users.keySet()
                 .stream()
                 .filter(s -> s.getPassport().equals(passport))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     /**
@@ -59,20 +58,21 @@ public class BankService {
      * По паспорту находит пользователя с помощью метода findByPassport(passport).
      * Перебирает список счетов пользователя.
      * Сравнивает значение реквизитов счета и входное значение.
-     *@return счет или null, если счета с таким реквизитом нету
-      */
+     *
+     * @return счет или null, если счета с таким реквизитом нету
+     */
 
-    public Account findByRequisite(String passport, String requisite) {
-        User user = findByPassport(passport);
-        if (user != null) {
-            return users.get(user)
+    public Optional<Account> findByRequisite(String passport, String requisite) {
+        Optional<User> user = findByPassport(passport);
+        if (user.isPresent()) {
+            return users.get(user.get())
                     .stream()
                     .filter(s -> s.getRequisite().equals(requisite))
-                    .findFirst()
-                    .orElse(null);
+                    .findFirst();
         }
         return null;
     }
+
     /**
      * Метод для перечисления денег с одного счёта на другой счёт.
      * Используя паспорт и реквезит находит счет с помощью метода findByRequisite.
@@ -81,11 +81,11 @@ public class BankService {
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
-        Account oneAcc = findByRequisite(srcPassport, srcRequisite);
-        Account twoAcc = findByRequisite(destPassport, destRequisite);
-        if (oneAcc != null && oneAcc.getBalance() >= amount && twoAcc != null) {
-            oneAcc.setBalance(oneAcc.getBalance() - amount);
-            twoAcc.setBalance(twoAcc.getBalance() + amount);
+        Optional<Account> oneAcc = findByRequisite(srcPassport, srcRequisite);
+        Optional<Account> twoAcc = findByRequisite(destPassport, destRequisite);
+        if (oneAcc.isPresent() && oneAcc.get().getBalance() >= amount && twoAcc.isPresent()) {
+            oneAcc.get().setBalance(oneAcc.get().getBalance() - amount);
+            twoAcc.get().setBalance(twoAcc.get().getBalance() + amount);
             return true;
         }
 
