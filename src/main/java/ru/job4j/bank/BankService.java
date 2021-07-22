@@ -1,7 +1,5 @@
 package ru.job4j.bank;
 
-import ru.job4j.collection.Order;
-
 import java.util.*;
 
 /**
@@ -14,7 +12,7 @@ public class BankService {
     /**
      * Это поле содержит всех пользователей системы с привязанными к ним счетами.
      */
-    private Map<User, List<Account>> users = new HashMap<>();
+    private final Map<User, List<Account>> users = new HashMap<>();
 
     /**
      * Этот метод добавляет пользователя в систему
@@ -64,13 +62,10 @@ public class BankService {
 
     public Optional<Account> findByRequisite(String passport, String requisite) {
         Optional<User> user = findByPassport(passport);
-        if (user.isPresent()) {
-            return users.get(user.get())
-                    .stream()
-                    .filter(s -> s.getRequisite().equals(requisite))
-                    .findFirst();
-        }
-        return null;
+        return user.flatMap(value -> users.get(value)
+                .stream()
+                .filter(s -> s.getRequisite().equals(requisite))
+                .findFirst());
     }
 
     /**
@@ -79,16 +74,14 @@ public class BankService {
      * Если счета существуют и счет списания больше или равен amount производится перечисление средств.
      */
 
-    public boolean transferMoney(String srcPassport, String srcRequisite,
-                                 String destPassport, String destRequisite, double amount) {
+    public void transferMoney(String srcPassport, String srcRequisite,
+                              String destPassport, String destRequisite, double amount) {
         Optional<Account> oneAcc = findByRequisite(srcPassport, srcRequisite);
         Optional<Account> twoAcc = findByRequisite(destPassport, destRequisite);
         if (oneAcc.isPresent() && oneAcc.get().getBalance() >= amount && twoAcc.isPresent()) {
             oneAcc.get().setBalance(oneAcc.get().getBalance() - amount);
             twoAcc.get().setBalance(twoAcc.get().getBalance() + amount);
-            return true;
         }
 
-        return false;
     }
 }
