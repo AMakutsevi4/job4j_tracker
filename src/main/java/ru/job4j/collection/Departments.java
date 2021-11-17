@@ -6,7 +6,7 @@ public class Departments {
 
     public static List<String> fillGaps(List<String> deps) {
         Set<String> tmp = new LinkedHashSet<>();
-        for (String value : deps) { //"k1/sk1");
+        for (String value : deps) {
             String start = "";
             for (String el : value.split("/")) {
                 if (start.equals("")) {
