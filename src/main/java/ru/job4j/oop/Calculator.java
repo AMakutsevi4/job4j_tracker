@@ -35,6 +35,5 @@ public class Calculator {
         System.out.println(rslDivide);
         int rslSumAll = calculator.sumAllOperation(2);
         System.out.println(rslSumAll);
-
     }
 }
