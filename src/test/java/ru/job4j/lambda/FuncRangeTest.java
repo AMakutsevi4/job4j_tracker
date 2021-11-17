@@ -1,6 +1,5 @@
 package ru.job4j.lambda;
 
-import kotlin.Function;
 import org.junit.Test;
 
 import java.util.Arrays;

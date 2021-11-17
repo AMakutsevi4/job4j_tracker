@@ -29,7 +29,7 @@ public class Calculator {
         System.out.println(result);
         int rsl = calculator.multiply(5);
         System.out.println(rsl);
-        int rslMinus  = minus(8);
+        int rslMinus = minus(8);
         System.out.println(rslMinus);
         int rslDivide = calculator.divide(9);
         System.out.println(rslDivide);
