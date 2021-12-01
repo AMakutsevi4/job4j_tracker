@@ -13,11 +13,11 @@ public class CreateAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker tracker) {
+    public boolean execute(Input input, Store nemTracker) {
         out.println("=== Добавление заявки ====");
         String name = input.askStr("Введите имя: ");
         Item item = new Item(name);
-        tracker.add(item);
+        nemTracker.add(item);
         out.println("Добавленная заявка: " + item);
         return true;
     }

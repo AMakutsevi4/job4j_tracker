@@ -11,17 +11,22 @@ public class Item {
     private LocalDateTime created = LocalDateTime.now();
 
     public Item(int id) {
-
         this.id = id;
     }
 
     public Item(String name, int id) {
-
+        this.name = name;
+        this.id = id;
     }
 
     public Item(String name) {
-
         this.name = name;
+    }
+
+    public Item(String name, int id, LocalDateTime created) {
+        this.name = name;
+        this.id = id;
+        this.created = created;
     }
 
     @Override
@@ -53,9 +58,9 @@ public class Item {
         this.name = name;
     }
 
-    public String getCreated() {
+    public LocalDateTime getCreated() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
-        String timeFormat = created.format(formatter);
-        return timeFormat;
+       return LocalDateTime.parse(created.format(formatter));
+
     }
 }

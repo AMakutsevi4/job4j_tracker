@@ -11,7 +11,7 @@ public class AttachmentSort {
                 new Attachment("image 2", 34),
                 new Attachment("image 3", 13)
         );
-        Comparator comparator = new Comparator() {
+        Comparator comparator = new Comparator<>() {
             @Override
             public int compare(Object o1, Object o2) {
                 Attachment left = (Attachment) o1;
@@ -22,7 +22,7 @@ public class AttachmentSort {
         attachments.sort(comparator);
         System.out.println(attachments);
 
-        Comparator<Attachment> nameComparator = new Comparator<Attachment>() {
+        Comparator<Attachment> nameComparator = new Comparator<>() {
             @Override
             public int compare(Attachment left, Attachment right) {
                 return left.getName().compareTo(right.getName());

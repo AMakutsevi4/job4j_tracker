@@ -15,9 +15,9 @@ public class ShowAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker tracker) {
+    public boolean execute(Input input, Store memTracker) {
         out.println("=== Все заявки: ====");
-        List<Item> items = tracker.findAll();
+        List<Item> items = memTracker.findAll();
         if (items.size() > 0) {
             for (Item item : items) {
                 out.println(item);
