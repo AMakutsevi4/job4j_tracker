@@ -34,12 +34,12 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        String sql = "Insert into items(name) values(?)";
+        String sql = "Insert into items(name, created) values(?, ?)";
         try (var statement = cn.prepareStatement(sql, Statement
                 .RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
+            statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.execute();
-            statement.setTimestamp('?', Timestamp.valueOf(item.getCreated()));
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     item.setId(generatedKeys.getInt(1));
@@ -54,11 +54,11 @@ public class SqlTracker implements Store {
     @Override
     public boolean replace(int id, Item item) {
         boolean rsl = false;
-        var sql = "update items set name = ? where id = ?";
+        var sql = "update items set name = ?, created = ?, where id = ?";
         try (var statement = cn.prepareStatement(sql)) {
             statement.setString(1, item.getName());
-            statement.setInt(2, id);
-            statement.setTimestamp('?', Timestamp.valueOf(item.getCreated()));
+            statement.setInt(3, id);
+            statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             rsl = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,10 +86,7 @@ public class SqlTracker implements Store {
         try (var statement = cn.prepareStatement(sql)) {
             try (var rslKey = statement.executeQuery()) {
                 if (rslKey.next()) {
-                    Item entry = parseItem(rslKey);
-                    entry.getCreated();
-                    rslKey.getTimestamp("created").toLocalDateTime();
-                    rsl.add(entry);
+                    rsl.add(parseItem(rslKey));
                 }
             }
         } catch (SQLException e) {
@@ -106,10 +103,7 @@ public class SqlTracker implements Store {
             statement.setString(1, key);
             try (var rslKey = statement.executeQuery()) {
                 if (rslKey.next()) {
-                    Item entry = parseItem(rslKey);
-                    entry.getCreated();
-                    rslKey.getTimestamp("created").toLocalDateTime();
-                    rsl.add(entry);
+                    rsl.add(parseItem(rslKey));
                 }
             }
         } catch (SQLException e) {
@@ -125,9 +119,7 @@ public class SqlTracker implements Store {
             statement.setInt(1, id);
             try (var rslKey = statement.executeQuery()) {
                 if (rslKey.next()) {
-                    Item entry = parseItem(rslKey);
-                    entry.getCreated();
-                    rslKey.getTimestamp("created").toLocalDateTime();
+                    return parseItem(rslKey);
                 }
             }
         } catch (SQLException e) {
@@ -136,12 +128,9 @@ public class SqlTracker implements Store {
         return null;
     }
 
-    public static Item parseItem(int id, String name) {
-        Item item = new Item(name);
-        item.setId(id);
-        return item;
-    }
     private Item parseItem(ResultSet resultSet) throws SQLException {
-        return new Item(resultSet.getString("name"), resultSet.getInt("id"));
+        return new Item(resultSet.getString("name"),
+                resultSet.getInt("id"),
+                resultSet.getTimestamp("created").toLocalDateTime());
     }
 }
