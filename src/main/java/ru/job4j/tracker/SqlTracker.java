@@ -9,6 +9,10 @@ import java.util.Properties;
 public class SqlTracker implements Store {
     private Connection cn;
 
+    public SqlTracker(Connection connection) {
+        this.cn = connection;
+    }
+
     public void init() {
         try (InputStream in = SqlTracker.class.getClassLoader()
                 .getResourceAsStream("app.properties")) {
@@ -60,7 +64,8 @@ public class SqlTracker implements Store {
             statement.setInt(3, id);
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             rsl = statement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (
+                SQLException e) {
             e.printStackTrace();
         }
         return rsl;
