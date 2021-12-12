@@ -4,15 +4,19 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class SqlTrackerTest {
 
@@ -47,7 +51,7 @@ public class SqlTrackerTest {
             statement.execute();
         }
     }
-/**
+
     @Test
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
@@ -63,5 +67,43 @@ public class SqlTrackerTest {
         Item addedItem = tracker.add(item);
         assertThat(addedItem, is(item));
     }
-*/
+
+    @Test
+    public void whenDelete() {
+        Store tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        tracker.add(item);
+        assertTrue(tracker.delete(item.getId()));
+    }
+
+    @Test
+    public void whenFindById() {
+        Store tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        Item item1 = new Item("item1");
+        tracker.add(item);
+        tracker.add(item1);
+        assertThat(tracker.findById(item1.getId()), is(item1));
+    }
+
+    @Test
+    public void whenFindByName() {
+        Store tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        Item item1 = new Item("item1");
+        tracker.add(item);
+        tracker.add(item1);
+        List<Item> items = new ArrayList<>();
+        items.add(item);
+        assertThat(tracker.findByName(item.getName()), is(items));
+    }
 }
+/**
+ * @Test public void whenReplace() {
+ * Store tracker = new SqlTracker(connection);
+ * Item item = new Item("item");
+ * Item item1 = new Item("item1");
+ * tracker.add(item);
+ * assertTrue(tracker.replace(item.getId(), item1));
+ * }
+ */

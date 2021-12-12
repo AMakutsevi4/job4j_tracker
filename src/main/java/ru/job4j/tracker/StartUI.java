@@ -18,7 +18,11 @@ public class StartUI {
                 continue;
             }
             UserAction action = actions[select];
-            run = action.execute(input, memTracker);
+            if (action.execute(input, memTracker)) {
+                run = true;
+            } else {
+                run = false;
+            }
         }
     }
 

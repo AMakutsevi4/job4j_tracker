@@ -38,7 +38,7 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        String sql = "Insert into items(name, created) values(?, ?)";
+        var sql = "Insert into items(name, created) values(?, ?)";
         try (var statement = cn.prepareStatement(sql, Statement
                 .RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
@@ -61,8 +61,8 @@ public class SqlTracker implements Store {
         var sql = "update items set name = ?, created = ?, where id = ?";
         try (var statement = cn.prepareStatement(sql)) {
             statement.setString(1, item.getName());
-            statement.setInt(3, id);
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
+            statement.setInt(3, id);
             rsl = statement.executeUpdate() > 0;
         } catch (
                 SQLException e) {
@@ -74,7 +74,7 @@ public class SqlTracker implements Store {
     @Override
     public boolean delete(int id) {
         var rsl = false;
-        var sql = "delete from items where id = ?";
+        var sql = "delete from items where id = ?;";
         try (var statement = cn.prepareStatement(sql)) {
             statement.setInt(1, id);
             rsl = statement.executeUpdate() > 0;
@@ -87,7 +87,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findAll() {
         List<Item> rsl = new ArrayList<>();
-        var sql = "select * from items";
+        var sql = "select * from items;";
         try (var statement = cn.prepareStatement(sql)) {
             try (var rslKey = statement.executeQuery()) {
                 if (rslKey.next()) {
@@ -103,7 +103,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> rsl = new ArrayList<>();
-        var sql = "select * from items where name = ?";
+        var sql = "select * from items where name = ?;";
         try (var statement = cn.prepareStatement(sql)) {
             statement.setString(1, key);
             try (var rslKey = statement.executeQuery()) {
@@ -119,10 +119,10 @@ public class SqlTracker implements Store {
 
     @Override
     public Item findById(int id) {
-        var sql = "select * from items where id = ?";
-        try (var statement = cn.prepareStatement(sql)) {
+        String sql = "select * from items where id = ?;";
+        try (PreparedStatement statement = cn.prepareStatement(sql)) {
             statement.setInt(1, id);
-            try (var rslKey = statement.executeQuery()) {
+            try (ResultSet rslKey = statement.executeQuery()) {
                 if (rslKey.next()) {
                     return parseItem(rslKey);
                 }
@@ -134,8 +134,8 @@ public class SqlTracker implements Store {
     }
 
     private Item parseItem(ResultSet resultSet) throws SQLException {
-        return new Item(resultSet.getString("name"),
-                resultSet.getInt("id"),
+        return new Item(resultSet.getInt("id"),
+                resultSet.getString("name"),
                 resultSet.getTimestamp("created").toLocalDateTime());
     }
 }
