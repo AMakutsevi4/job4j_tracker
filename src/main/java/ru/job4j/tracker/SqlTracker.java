@@ -58,7 +58,7 @@ public class SqlTracker implements Store {
     @Override
     public boolean replace(int id, Item item) {
         boolean rsl = false;
-        var sql = "update items set name = ?, created = ?, where id = ?";
+        var sql = "update items set name = ?, created = ? where id = ?";
         try (var statement = cn.prepareStatement(sql)) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));

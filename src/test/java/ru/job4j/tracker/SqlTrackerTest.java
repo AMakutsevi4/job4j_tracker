@@ -97,13 +97,25 @@ public class SqlTrackerTest {
         items.add(item);
         assertThat(tracker.findByName(item.getName()), is(items));
     }
+
+    @Test
+    public void whenReplace() {
+        Store tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        tracker.add(item);
+        int id = item.getId();
+        Item item1 = new Item("item1");
+        tracker.replace(id, item1);
+        assertThat(tracker.findById(id).getName(), is("item1"));
+    }
+
+    @Test
+    public void whenFindAll() {
+        Store tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        Item item1 = new Item("item1");
+        tracker.add(item);
+        tracker.add(item1);
+        assertThat(2, is(List.of(item1, item1).size()));
+    }
 }
-/**
- * @Test public void whenReplace() {
- * Store tracker = new SqlTracker(connection);
- * Item item = new Item("item");
- * Item item1 = new Item("item1");
- * tracker.add(item);
- * assertTrue(tracker.replace(item.getId(), item1));
- * }
- */
