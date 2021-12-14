@@ -90,7 +90,7 @@ public class SqlTracker implements Store {
         var sql = "select * from items;";
         try (var statement = cn.prepareStatement(sql)) {
             try (var rslKey = statement.executeQuery()) {
-                if (rslKey.next()) {
+                while (rslKey.next()) {
                     rsl.add(parseItem(rslKey));
                 }
             }

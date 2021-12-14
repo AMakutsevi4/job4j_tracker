@@ -116,6 +116,6 @@ public class SqlTrackerTest {
         Item item1 = new Item("item1");
         tracker.add(item);
         tracker.add(item1);
-        assertThat(2, is(List.of(item1, item1).size()));
+        assertThat(tracker.findAll(), is(List.of(item, item1)));
     }
 }
