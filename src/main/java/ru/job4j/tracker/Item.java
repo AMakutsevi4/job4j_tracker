@@ -82,4 +82,8 @@ public class Item {
         return created;
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.printf("Removed %d %s%n", id, name);
+    }
 }
