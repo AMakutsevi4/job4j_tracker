@@ -16,10 +16,10 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
 
     private LocalDateTime created = LocalDateTime.now().truncatedTo(ChronoUnit.MICROS);
+    private String description;
 
     public Item(int id) {
         this.id = id;
@@ -37,6 +37,12 @@ public class Item {
     public Item(int id, String name, LocalDateTime created) {
         this.id = id;
         this.name = name;
+        this.created = created;
+    }
+
+    public Item(String name, String description, LocalDateTime created) {
+        this.name = name;
+        this.description = description;
         this.created = created;
     }
 
@@ -69,6 +75,24 @@ public class Item {
         this.name = name;
     }
 
+    public String getDescription() {
+
+        return description;
+    }
+
+    public void setDescription(String description) {
+
+        this.description = description;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -85,10 +109,6 @@ public class Item {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, created);
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
     }
 
     @Override
