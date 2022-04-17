@@ -25,7 +25,7 @@ public class MemTracker implements Store {
     public List<Item> findByName(String key) {
         List<Item> itemsName = new ArrayList<>();
         for (Item item : items) {
-            if (key.equals(item.getName())) {
+            if (item.getName().equals(key)) {
                 itemsName.add(item);
             }
         }
