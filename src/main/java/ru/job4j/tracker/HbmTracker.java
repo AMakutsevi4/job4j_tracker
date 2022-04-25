@@ -65,7 +65,9 @@ public class HbmTracker implements Store, AutoCloseable {
     public List<Item> findByName(String key) {
         Session session = sf.openSession();
         session.beginTransaction();
-        List<Item> list = session.createQuery(key, Item.class).list();
+        List list = session.createQuery("from ru.job4j.tracker.Item i where i.name = :name")
+                .setParameter("name", key)
+                .list();
         session.getTransaction().commit();
         session.close();
         return list;
