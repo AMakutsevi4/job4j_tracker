@@ -22,6 +22,11 @@ public class MemTracker implements Store {
         return List.copyOf(items);
     }
 
+    @Override
+    public void reactFindAll(Observe<Item> observe) {
+
+    }
+
     public List<Item> findByName(String key) {
         List<Item> itemsName = new ArrayList<>();
         for (Item item : items) {

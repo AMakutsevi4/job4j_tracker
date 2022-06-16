@@ -101,6 +101,23 @@ public class SqlTracker implements Store {
     }
 
     @Override
+    public void reactFindAll(Observe<Item> observe) {
+        var sql = "select * from items;";
+        try (var statement = cn.prepareStatement(sql)) {
+            try (var rslKey = statement.executeQuery()) {
+                while (rslKey.next()) {
+                    Thread.sleep(100);
+                   observe.receive(parseItem(rslKey));
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+     }
+
+    @Override
     public List<Item> findByName(String key) {
         List<Item> rsl = new ArrayList<>();
         var sql = "select * from items where name = ?;";
