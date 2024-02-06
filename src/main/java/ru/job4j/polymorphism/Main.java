@@ -18,6 +18,7 @@ public class Main {
         vehicle.brake();
         vehicle.accelerate();
         fuel.refill();
+        Vehicle.getDragCoefficient();
 
     }
 }
