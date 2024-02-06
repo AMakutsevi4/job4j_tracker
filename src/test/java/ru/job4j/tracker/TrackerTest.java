@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 public class TrackerTest {
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
-        MemTracker tracker = new MemTracker();
+        Mem tracker = new Mem();
         Item item = new Item("test1");
         item.setName("test1");
         tracker.add(item);
@@ -17,7 +17,7 @@ public class TrackerTest {
 
     @Test
     public void whenReplace() {
-        MemTracker tracker = new MemTracker();
+        Mem tracker = new Mem();
         Item bug = new Item("name", 1);
         bug.setName("Bug");
         tracker.add(bug);
@@ -30,7 +30,7 @@ public class TrackerTest {
 
     @Test
     public void whenDelete() {
-        MemTracker tracker = new MemTracker();
+        Mem tracker = new Mem();
         Item bug = new Item("name", 1);
         bug.setName("Bug");
         tracker.add(bug);

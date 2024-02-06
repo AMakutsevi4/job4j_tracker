@@ -1,5 +1,11 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.action.*;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.Validate;
+import ru.job4j.tracker.output.Console;
+import ru.job4j.tracker.output.Output;
+
 public class StartUI {
     private final Output out;
 
@@ -34,14 +40,14 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        Output output = new ConsoleOutput();
-        Input input = new ValidateInput(output, new ConsoleInput());
-        MemTracker memTracker = new MemTracker();
+        Output output = new Console();
+        Input input = new Validate(output, new ru.job4j.tracker.input.Console());
+        Mem mem = new Mem();
         UserAction[] actions = {
-                new CreateAction(output), new ShowAction(output), new EditAction(output),
-                new DeleteAction(output), new FindIdAction(output), new FindNameAction(output),
-                new ExitAction(), new ProfilingAction()
+                new Create(output), new Show(output), new Edit(output),
+                new Delete(output), new FindId(output), new FindName(output),
+                new Exit(), new Profiling()
         };
-        new StartUI(output).init(input, memTracker, actions);
+        new StartUI(output).init(input, mem, actions);
     }
 }

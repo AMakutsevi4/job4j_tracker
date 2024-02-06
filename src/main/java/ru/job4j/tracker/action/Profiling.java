@@ -1,8 +1,12 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.action;
+
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.Item;
+import ru.job4j.tracker.Store;
 
 import static java.lang.System.out;
 
-public class ProfilingAction implements UserAction {
+public class Profiling implements UserAction {
 
     @Override
     public String name() {

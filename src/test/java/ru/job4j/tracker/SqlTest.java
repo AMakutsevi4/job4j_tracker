@@ -18,13 +18,13 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class SqlTrackerTest {
+public class SqlTest {
 
     private static Connection connection;
 
     @BeforeClass
     public static void initConnection() {
-        try (InputStream in = SqlTrackerTest.class.getClassLoader()
+        try (InputStream in = SqlTest.class.getClassLoader()
                 .getResourceAsStream("test.properties")) {
             Properties config = new Properties();
             config.load(in);
@@ -54,7 +54,7 @@ public class SqlTrackerTest {
 
     @Test
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
-        SqlTracker tracker = new SqlTracker(connection);
+        Sql tracker = new Sql(connection);
         Item item = new Item("item");
         tracker.add(item);
         assertThat(tracker.findById(item.getId()), is(item));
@@ -62,7 +62,7 @@ public class SqlTrackerTest {
 
     @Test
     public void whenAddToDB() {
-        Store tracker = new SqlTracker(connection);
+        Store tracker = new Sql(connection);
         Item item = new Item("item");
         Item addedItem = tracker.add(item);
         assertThat(addedItem, is(item));
@@ -70,7 +70,7 @@ public class SqlTrackerTest {
 
     @Test
     public void whenDelete() {
-        Store tracker = new SqlTracker(connection);
+        Store tracker = new Sql(connection);
         Item item = new Item("item");
         tracker.add(item);
         assertTrue(tracker.delete(item.getId()));
@@ -78,7 +78,7 @@ public class SqlTrackerTest {
 
     @Test
     public void whenFindById() {
-        Store tracker = new SqlTracker(connection);
+        Store tracker = new Sql(connection);
         Item item = new Item("item");
         Item item1 = new Item("item1");
         tracker.add(item);
@@ -88,7 +88,7 @@ public class SqlTrackerTest {
 
     @Test
     public void whenFindByName() {
-        Store tracker = new SqlTracker(connection);
+        Store tracker = new Sql(connection);
         Item item = new Item("item");
         Item item1 = new Item("item1");
         tracker.add(item);
@@ -100,7 +100,7 @@ public class SqlTrackerTest {
 
     @Test
     public void whenReplace() {
-        Store tracker = new SqlTracker(connection);
+        Store tracker = new Sql(connection);
         Item item = new Item("item");
         tracker.add(item);
         int id = item.getId();
@@ -111,7 +111,7 @@ public class SqlTrackerTest {
 
     @Test
     public void whenFindAll() {
-        Store tracker = new SqlTracker(connection);
+        Store tracker = new Sql(connection);
         Item item = new Item("item");
         Item item1 = new Item("item1");
         tracker.add(item);

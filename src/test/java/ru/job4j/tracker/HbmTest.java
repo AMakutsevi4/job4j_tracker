@@ -8,11 +8,11 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
 
-class HbmTrackerTest {
+class HbmTest {
 
     @Test
     void whenAdd() {
-        HbmTracker tracker = new HbmTracker();
+        Hbm tracker = new Hbm();
         Item item = new Item();
         tracker.add(item);
         assertThat(tracker.findById(item.getId()), is(item));
@@ -20,7 +20,7 @@ class HbmTrackerTest {
 
     @Test
     void whenDelete() {
-        HbmTracker tracker = new HbmTracker();
+        Hbm tracker = new Hbm();
         Item item1 = new Item("item1");
         Item item2 = new Item("item2");
         tracker.add(item1);
@@ -31,7 +31,7 @@ class HbmTrackerTest {
 
     @Test
     void whenFindAll() {
-        HbmTracker tracker = new HbmTracker();
+        Hbm tracker = new Hbm();
         Item item1 = new Item("item1");
         Item item2 = new Item("item2");
         tracker.add(item1);
@@ -41,7 +41,7 @@ class HbmTrackerTest {
 
     @Test
     void whenFindByName() {
-        HbmTracker tracker = new HbmTracker();
+        Hbm tracker = new Hbm();
         Item item1 = new Item("item1");
         Item item2 = new Item("item2");
         tracker.add(item1);

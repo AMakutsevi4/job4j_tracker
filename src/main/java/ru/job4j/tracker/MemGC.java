@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-public class MemTrackerGC {
+public class MemGC {
     /**
      * чтобы увидеть лог сборщика в консоли, в параметрах VM options ставим флаг -Xlog:gc*
      * также для определения размера хипа нашей программы, ставим следующие флаги: -Xmx4m -Xms4m
@@ -11,12 +11,12 @@ public class MemTrackerGC {
      * - ZGC => -XX:+UseZGC
      */
     public static void main(String[] args) {
-        MemTracker memTracker = new MemTracker();
+        Mem mem = new Mem();
         for (int i = 0; i < 2000; i++) {
             Item item = new Item(i);
             item.setId(i);
             item.setName("item - " + i);
-            memTracker.add(item);
+            mem.add(item);
             System.gc();
         }
     }

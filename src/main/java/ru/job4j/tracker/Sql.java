@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class SqlTracker implements Store {
+public class Sql implements Store {
     private Connection cn;
 
-    public SqlTracker(Connection connection) {
+    public Sql(Connection connection) {
         this.cn = connection;
     }
 
     public void init() {
-        try (InputStream in = SqlTracker.class.getClassLoader()
+        try (InputStream in = Sql.class.getClassLoader()
                 .getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
