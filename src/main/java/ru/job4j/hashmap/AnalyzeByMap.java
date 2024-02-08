@@ -1,8 +1,6 @@
 package ru.job4j.hashmap;
 
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class AnalyzeByMap {
     public static double averageScore(List<Pupil> pupils) {
@@ -57,6 +55,7 @@ public class AnalyzeByMap {
     public static Label bestSubject(List<Pupil> pupils) {
         Map<String, Integer> entity = new LinkedHashMap<>();
         List<Label> labelList = new ArrayList<>();
+        int index = 0;
         for (Pupil p : pupils) {
             for (Subject s : p.subjects()) {
                 entity.put(s.name(), s.score() + entity.getOrDefault(s.name(), 0));
@@ -64,8 +63,12 @@ public class AnalyzeByMap {
             for (String s : entity.keySet()) {
                 labelList.add(new Label(s, entity.get(s)));
             }
-            labelList.sort(Comparator.naturalOrder());
+            for (Label label : labelList) {
+                if (label.score() > labelList.get(index).score()) {
+                    index++;
+                }
+            }
         }
-        return labelList.get(labelList.size() - 1);
+        return labelList.get(index);
     }
 }
