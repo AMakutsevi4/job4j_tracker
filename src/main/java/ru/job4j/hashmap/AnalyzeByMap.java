@@ -1,6 +1,8 @@
 package ru.job4j.hashmap;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
+import java.util.function.BiFunction;
 
 public class AnalyzeByMap {
     public static double averageScore(List<Pupil> pupils) {
@@ -27,14 +29,14 @@ public class AnalyzeByMap {
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
         Map<String, Integer> entity = new LinkedHashMap<>();
         List<Label> labelList = new ArrayList<>();
+        BiFunction<Integer, Integer, Integer> function = (oldValue, newValue) -> oldValue + newValue;
+
         for (Pupil p : pupils) {
             for (Subject s : p.subjects()) {
-                entity.put(s.name(), s.score() + entity.getOrDefault(s.name(), 0));
+                entity.merge(s.name(), s.score(), function);
             }
         }
-        for (String s : entity.keySet()) {
-            labelList.add(new Label(s, (double) entity.get(s) / pupils.size()));
-        }
+        entity.forEach((key, value) -> labelList.add(new Label(key, (double) value / pupils.size())));
 
         return labelList;
     }
@@ -58,11 +60,10 @@ public class AnalyzeByMap {
         int index = 0;
         for (Pupil p : pupils) {
             for (Subject s : p.subjects()) {
-                entity.put(s.name(), s.score() + entity.getOrDefault(s.name(), 0));
+                entity.merge(s.name(), s.score(), (oldValue, newValue) -> oldValue + newValue);
             }
-            for (String s : entity.keySet()) {
-                labelList.add(new Label(s, entity.get(s)));
-            }
+            entity.forEach((key, value) -> labelList.add(new Label(key, value)));
+
             for (Label label : labelList) {
                 if (label.score() > labelList.get(index).score()) {
                     index++;
