@@ -1,9 +1,10 @@
 package ru.job4j.tracker;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -14,15 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.*;
 
 public class SqlTest {
-/*
+
     private static Connection connection;
 
-    @BeforeClass
+    @BeforeAll
     public static void initConnection() {
         try (InputStream in = SqlTest.class.getClassLoader()
                 .getResourceAsStream("test.properties")) {
@@ -40,12 +39,12 @@ public class SqlTest {
         }
     }
 
-    @AfterClass
+    @AfterAll
     public static void closeConnection() throws SQLException {
         connection.close();
     }
 
-    @After
+    @AfterEach
     public void wipeTable() throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement("delete from items")) {
             statement.execute();
@@ -57,7 +56,7 @@ public class SqlTest {
         Sql tracker = new Sql(connection);
         Item item = new Item("item");
         tracker.add(item);
-        assertThat(tracker.findById(item.getId()), is(item));
+        assertThat(tracker.findById(item.getId())).isEqualTo(item);
     }
 
     @Test
@@ -65,7 +64,7 @@ public class SqlTest {
         Store tracker = new Sql(connection);
         Item item = new Item("item");
         Item addedItem = tracker.add(item);
-        assertThat(addedItem, is(item));
+        assertThat(addedItem).isEqualTo(item);
     }
 
     @Test
@@ -73,7 +72,8 @@ public class SqlTest {
         Store tracker = new Sql(connection);
         Item item = new Item("item");
         tracker.add(item);
-        assertTrue(tracker.delete(item.getId()));
+        assertThat(tracker.delete(item.getId()));
+
     }
 
     @Test
@@ -83,7 +83,7 @@ public class SqlTest {
         Item item1 = new Item("item1");
         tracker.add(item);
         tracker.add(item1);
-        assertThat(tracker.findById(item1.getId()), is(item1));
+        assertThat(tracker.findById(item1.getId())).isEqualTo(item1);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class SqlTest {
         tracker.add(item1);
         List<Item> items = new ArrayList<>();
         items.add(item);
-        assertThat(tracker.findByName(item.getName()), is(items));
+        assertThat(tracker.findByName(item.getName())).isEqualTo(items);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class SqlTest {
         int id = item.getId();
         Item item1 = new Item("item1");
         tracker.replace(id, item1);
-        assertThat(tracker.findById(id).getName(), is("item1"));
+        assertThat(tracker.findById(id).getName()).isEqualTo(item1.getName());
     }
 
     @Test
@@ -116,8 +116,7 @@ public class SqlTest {
         Item item1 = new Item("item1");
         tracker.add(item);
         tracker.add(item1);
-        assertThat(tracker.findAll(), is(List.of(item, item1)));
+        assertThat(tracker.findAll()).isEqualTo(List.of(item, item1));
     }
 
- */
 }
