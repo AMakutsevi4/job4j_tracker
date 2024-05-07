@@ -15,7 +15,7 @@ public class Sql implements Store {
 
     public void init() {
         try (InputStream in = Sql.class.getClassLoader()
-                .getResourceAsStream("app.properties")) {
+                .getResourceAsStream("db/liquibase.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
